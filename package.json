@@ -1,0 +1,19 @@
+{
+  "name": "api-rest-javascript",
+  "version": "1.0.0",
+  "description": "Consumo de una api-rest con javaScrip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/londocg/api-rest-javascript.git"
+  },
+  "author": "Leonardo Cbezas Grajales",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/londocg/api-rest-javascript/issues"
+  },
+  "homepage": "https://github.com/londocg/api-rest-javascript#readme"
+}

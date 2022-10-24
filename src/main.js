@@ -34,10 +34,17 @@ const api = axios.create({
       const movieImg = document.createElement('img');
       movieImg.classList.add('movie-img');
       movieImg.setAttribute('alt', movie.title);
+      
       movieImg.setAttribute(
         lazyLoad ? 'data-img' : 'src',
         'https://image.tmdb.org/t/p/w300' + movie.poster_path,
       );
+      movieImg.addEventListener('error', () => {
+        movieImg.setAttribute(
+          'src',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsLNLbBgAZJcy2RWE2g2nMWsi6R82NVjgAJQ&usqp=CAU',
+        );
+      });
 
       if (lazyLoad) {
         lazyLoader.observe(movieImg);

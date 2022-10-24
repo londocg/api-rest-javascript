@@ -21,8 +21,17 @@ const api = axios.create({
     });
   });
   
-  function createMovies(movies, container, lazyLoad = false) {
-    container.innerHTML = '';
+  function createMovies(
+    movies,
+    container,
+    {
+      lazyLoad = false,
+      clean = true,
+    } = {},
+  ) {
+    if (clean) {
+      container.innerHTML = '';
+    }
   
     movies.forEach(movie => {
       const movieContainer = document.createElement('div');
@@ -118,8 +127,38 @@ const api = axios.create({
   async function getTrendingMovies() {
     const { data } = await api('trending/movie/day');
     const movies = data.results;
+    maxPage = data.total_pages;
   
-    createMovies(movies, genericSection);
+    createMovies(movies, genericSection, { lazyLoad: true, clean: true});
+
+  }
+
+  async function getPaginatedTrendingMovies() {
+    const {
+      scrollTop,
+      scrollHeight,
+      clientHeight
+    } = document.documentElement;
+
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight -10);
+    const pageIsNoMax = page < maxPage;
+
+
+    if (scrollIsBottom && pageIsNoMax) {
+      page++;
+    const { data } = await api('trending/movie/day', {
+      params:{
+        page,
+      }
+    });
+    const movies = data.results;
+  
+    createMovies(movies,
+      genericSection,
+      { lazyLoad: true, clean: false},
+      );
+    }
+
   }
   
   async function getMovieById(id) {
